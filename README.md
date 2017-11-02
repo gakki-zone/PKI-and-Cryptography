@@ -31,7 +31,182 @@
 
 ---
 
- sss
+## 主要的几种单向散列函数
+<table class="wikitable" style="margin-top: 0px; width:100%">
+<caption>SHA函数对比</caption>
+<tbody><tr style="vertical-align:bottom;">
+<th colspan="2">算法和变体</th>
+<th>输出散列值长度
+
+（bits）</th>
+<th>中继散列值长度
+
+（bits）</th>
+<th>数据区块长度
+
+（bits）</th>
+<th>最大输入消息长度
+
+（bits）</th>
+<th>循环次数</th>
+<th>使用到的运算符</th>
+<th>碰撞攻击
+
+（bits）</th>
+<th>性能示例<sup id="cite_ref-3" class="reference">[[3]](#cite_note-3)</sup>
+
+([MiB](/wiki/Mebibyte "Mebibyte")/s)</th>
+</tr>
+<tr style="text-align:center;vertical-align:top;">
+<td colspan="2">**[MD5](/wiki/MD5 "MD5")**（作为参考）</td>
+<td>128</td>
+<td>128
+
+<span class="nowrap" style="white-space:nowrap;">(4 × 32)</span></td>
+<td>512</td>
+<td>无限<sup id="cite_ref-4" class="reference">[[4]](#cite_note-4)</sup></td>
+<td>64</td>
+<td>And, Xor, Rot, <span class="nowrap" style="white-space:nowrap;">Add (mod&nbsp;2<sup>32</sup>),</span> Or</td>
+<td style="background: #faa; color: black; vertical-align: middle; text-align: center;" class="no table-no">&lt;64
+
+（发现碰撞）</td>
+<td>335</td>
+</tr>
+<tr style="text-align:center;vertical-align:top;">
+<td colspan="2">**<span class="nowrap" style="white-space:nowrap;">[SHA-0](/wiki/SHA-0 "SHA-0")</span>**</td>
+<td>160</td>
+<td>160
+
+<span class="nowrap" style="white-space:nowrap;">(5 × 32)</span></td>
+<td>512</td>
+<td>2<sup>64</sup> − 1</td>
+<td>80</td>
+<td rowspan="2">And, Xor, Rot, <span class="nowrap" style="white-space:nowrap;">Add (mod&nbsp;2<sup>32</sup>),</span> Or</td>
+<td style="background: #faa; color: black; vertical-align: middle; text-align: center;" class="no table-no">&lt;80
+
+（发现碰撞）</td>
+<td>-</td>
+</tr>
+<tr style="text-align:center;vertical-align:top;">
+<td colspan="2">**<span class="nowrap" style="white-space:nowrap;">[SHA-1](/wiki/SHA-1 "SHA-1")</span>**</td>
+<td>160</td>
+<td>160
+
+<span class="nowrap" style="white-space:nowrap;">(5 × 32)</span></td>
+<td>512</td>
+<td>2<sup>64</sup> − 1</td>
+<td>80</td>
+<td style="background: #faa; color: black; vertical-align: middle; text-align: center;" class="no table-no">&lt;80<sup id="cite_ref-5" class="reference">[[5]](#cite_note-5)</sup>
+
+（发现碰撞<sup id="cite_ref-6" class="reference">[[6]](#cite_note-6)</sup>）</td>
+<td>192</td>
+</tr>
+<tr style="text-align:center;vertical-align:top;">
+<td rowspan="2">**<span class="nowrap" style="white-space:nowrap;">[SHA-2](/wiki/SHA-2 "SHA-2")</span>**</td>
+<td>_SHA-224_
+
+_SHA-256_</td>
+<td>224
+
+256</td>
+<td>256
+
+<span class="nowrap" style="white-space:nowrap;">(8 × 32)</span></td>
+<td>512</td>
+<td>2<sup>64</sup> − 1</td>
+<td>64</td>
+<td>And, Xor, Rot, <span class="nowrap" style="white-space:nowrap;">Add (mod&nbsp;2<sup>32</sup>),</span> Or, Shr</td>
+<td style="background: #99FF99; color: black; vertical-align: middle; text-align: center;" class="yes table-yes2">112
+
+128</td>
+<td>139</td>
+</tr>
+<tr style="text-align:center;vertical-align:top;">
+<td>_SHA-384_
+
+_SHA-512_
+
+_<span class="nowrap" style="white-space:nowrap;">SHA-512/224</span>_
+
+_<span class="nowrap" style="white-space:nowrap;">SHA-512/256</span>_</td>
+<td>384
+
+512
+
+224
+
+256</td>
+<td>512
+
+<span class="nowrap" style="white-space:nowrap;">(8 × 64)</span></td>
+<td>1024</td>
+<td>2<sup>128</sup> − 1</td>
+<td>80</td>
+<td>And, Xor, Rot, <span class="nowrap" style="white-space:nowrap;">Add (mod&nbsp;2<sup>64</sup>),</span> Or, Shr</td>
+<td style="background: #99FF99; color: black; vertical-align: middle; text-align: center;" class="yes table-yes2">192
+
+256
+
+112
+
+128</td>
+<td>154</td>
+</tr>
+<tr style="text-align:center;vertical-align:top;">
+<td rowspan="2">**<span class="nowrap" style="white-space:nowrap;">[SHA-3](/wiki/SHA-3 "SHA-3")</span>**</td>
+<td>_SHA3-224_
+
+_SHA3-256_
+
+_SHA3-384_
+
+_SHA3-512_</td>
+<td>224
+
+256
+
+384
+
+512</td>
+<td rowspan="2">1600
+
+<span class="nowrap" style="white-space:nowrap;">(5 × 5 × 64)</span></td>
+<td>1152
+
+1088
+
+832
+
+576</td>
+<td rowspan="2">无限<sup id="cite_ref-7" class="reference">[[7]](#cite_note-7)</sup></td>
+<td rowspan="2">24<sup id="cite_ref-8" class="reference">[[8]](#cite_note-8)</sup></td>
+<td rowspan="2">And, Xor, Rot, Not</td>
+<td style="background: #99FF99; color: black; vertical-align: middle; text-align: center;" class="yes table-yes2">112
+
+128
+
+192
+
+256</td>
+<td>-</td>
+</tr>
+<tr style="text-align:center;vertical-align:top;">
+<td>_SHAKE128_
+
+_SHAKE256_</td>
+<td><span class="nowrap" style="white-space:nowrap;">_d_ (arbitrary)</span>
+
+<span class="nowrap" style="white-space:nowrap;">_d_ (arbitrary)</span></td>
+<td>1344
+
+1088</td>
+<td style="background: #99FF99; color: black; vertical-align: middle; text-align: center;" class="yes table-yes2">min(_d_/2, 128)
+
+min(_d_/2, 256)</td>
+<td>-</td>
+</tr>
+</tbody></table>
+
 
 ---
 
